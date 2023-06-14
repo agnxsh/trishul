@@ -1,13 +1,13 @@
 use clap::Parser;
-use trishul::{Contract::Contract, queryeth, flag};
+use trishul::{contract_handler::Contract, queryeth, flag};
 
 #[derive(Parser)]
-#[command(author, version, about, longg_about = None)]
+#[command(author, version, about, long_about = None)]
 #[command(propagate_version = true)]
 
 struct Clitool {
     #[command(subcommand)]
-    dispatcher: sub :: Commands
+    dispatcher: flag :: Commands
 }
 
 fn main (){
@@ -15,7 +15,7 @@ fn main (){
     let rt = tokio::runtime::Runtime::new().unwrap();
 
     match &cli.dispatcher {
-        sub::Commands::Find {
+        flag::Commands::Search {
             rpc_url,
             contract_address,
         } => {
@@ -26,7 +26,11 @@ fn main (){
 
             let bytecode = rt
                 .block_on(queryeth::get_opcode(rpc_url, contract_address))
-                .unwrap()
+                .unwrap();
+
+            let contract = Contract{bytecode};
+            let pattern: Vec<u8> = vec![0x80,0x63,0x14,0x61,0x57];
+            contract.get_smart_contract_dispatcher(pattern);
         }
     }
 }

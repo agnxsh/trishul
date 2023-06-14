@@ -1,6 +1,5 @@
-use clap::Subcommand
-/// Clap is a cli-handling tool for rust, you can find the crate
-/// @ https://crates.io/crates/clap
+use clap::Subcommand;
+
 
 #[derive(Subcommand)]
 pub enum Commands {

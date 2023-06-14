@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  trishul:
+    build: .
+    volumes:
+      - ./:/trishul
+    environment:
+      - USER=agnish
+    container_name: trishul

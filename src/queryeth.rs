@@ -2,14 +2,14 @@ use std::str::FromStr;
 
 use ethers:: {
     providers::{Http, Middleware, Provider, ProviderError},
-    types::{Address, BlockId, BlockId, BlockNumber, Bytes},
-}
+    types::{Address, BlockId, BlockNumber, Bytes},
+};
 
-pub async fn get_opcode(rpc_url; &str. contract_address: &str)-> Result<Bytes, ProviderError>{
+pub async fn get_opcode(rpc_url: &str, contract_address: &str)-> Result<Bytes, ProviderError>{
     let provider = Provider::<Http>::try_from(rpc_url).unwrap();
 
     let bytecode = match provider 
-        .get_opcode(
+        .get_code(
             Address::from_str(contract_address).unwrap(),
             Some(BlockId::Number(BlockNumber::Latest)),
 
